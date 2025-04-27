@@ -4,7 +4,7 @@
   "metadata": {
     "colab": {
       "provenance": [],
-      "authorship_tag": "ABX9TyOAmcFMoHZdJBLxTEp3wqJC",
+      "authorship_tag": "ABX9TyN6pZ7NlQMz0FOy+5vMDZC5",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -102,7 +102,7 @@
         "    print(\"Failed to push to GitHub. Ensure remote is configured and authenticated.\")\n",
         "'''\n",
         "\n",
-        "def get_git_log(owner, repo, token=None):\n",
+        "def get_git_log(owner, repo, token = None):\n",
         "  \"\"\"\n",
         "  Retrieve the git commit history from a GitHub repo using the GitHub API\n",
         "\n",
@@ -148,7 +148,7 @@
       "metadata": {
         "id": "sGyTn14sQJMm"
       },
-      "execution_count": 11,
+      "execution_count": 2,
       "outputs": []
     },
     {
@@ -157,7 +157,7 @@
       "metadata": {
         "id": "NXAmipz_V89s"
       },
-      "execution_count": null,
+      "execution_count": 1,
       "outputs": []
     }
   ]
