@@ -1,0 +1,153 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyN6pZ7NlQMz0FOy+5vMDZC5"
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **CS5901 - Assignment 2 - Get_Utils Function**\n",
+        "*This .py file contains the module for git and GitHub repository management operations*\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "CIvzBfHjP3PM"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#import subprocess\n",
+        "#import os\n",
+        "import requests\n",
+        "\n",
+        "# The code in docstring is only for local git repo. Here, we default to GitHub\n",
+        "'''\n",
+        "def init_repo(directory, remote_url = None):\n",
+        "  \"\"\"\n",
+        "  Initialize a local git repo and GitHub remote setup\n",
+        "\n",
+        "  Args:\n",
+        "    directory (str): path to the working directory\n",
+        "    remote_url(str, optional): GitHub repo remote URL\n",
+        "\n",
+        "  Returns:\n",
+        "    None\n",
+        "  \"\"\"\n",
+        "\n",
+        "  #Verify if git repo already exists\n",
+        "  if not os.path.exists(os.path.join(directory, '.git')):\n",
+        "\n",
+        "    #Initialize new git repo\n",
+        "    subprocess.run(['git', 'init'], cwd = directory, check = True)\n",
+        "\n",
+        "    #Create .gitignore file with exclusions\n",
+        "    with open(os.path.join(directory, '.gitignore'), 'w') as f:\n",
+        "      f.write('*csv\\n__pycache__/\\n*.ipynb_checkpoints/')\n",
+        "\n",
+        "    #Stage and commit .gitignore\n",
+        "    subprocess.run(['git', 'add', '.gitignore'], cwd = directory, check = True)\n",
+        "    subprocess.run(['git', 'commit', '-m', 'Initial commit'], cwd = directory, check = True)\n",
+        "\n",
+        "    #Set up remote GitHub repo if URL is provided\n",
+        "    if remote_url:\n",
+        "      subprocess.run(['git', 'remote', 'add', 'origin', remote_url], cwd = directory, check = True)\n",
+        "\n",
+        "\n",
+        "def commit_changes(directory, message):\n",
+        "  \"\"\"\n",
+        "  Commit changes to the local git repo and push to GitHub\n",
+        "\n",
+        "  Args:\n",
+        "    directory (str): path to the working directory\n",
+        "    message (str): commit message\n",
+        "\n",
+        "  Returns:\n",
+        "    None\n",
+        "  \"\"\"\n",
+        "\n",
+        "  #Stage and commit changes\n",
+        "  subprocess.run(['git', 'add', '.'], cwd = directory, check = True)\n",
+        "\n",
+        "  #Commit with message\n",
+        "  subprocess.run(['git', 'commit', '-m', message], cwd = directory, check = True)\n",
+        "\n",
+        "  #Push changes to GitHub (origin must be set)\n",
+        "  try:\n",
+        "    subprocess.run(['git', 'push', 'origin', 'main'], cwd = directory, check = True)\n",
+        "  except:\n",
+        "    print(\"Failed to push to GitHub. Ensure remote is configured and authenticated.\")\n",
+        "'''\n",
+        "\n",
+        "def get_git_log(owner, repo, token = None):\n",
+        "  \"\"\"\n",
+        "  Retrieve the git commit history from a GitHub repo using the GitHub API\n",
+        "\n",
+        "  Args:\n",
+        "    owner (str): GitHub username\n",
+        "    repo (str): GitHub repository name\n",
+        "    token (str): GitHub personal access token for authentication\n",
+        "\n",
+        "  Returns:\n",
+        "    log (str): Git log output on one line\n",
+        "\n",
+        "  Raises:\n",
+        "    requests.RequestException: If there is an error with the GitHub API request\n",
+        "    ValueError: If owner or repo is invalid\n",
+        "  \"\"\"\n",
+        "  if not owner or not repo:\n",
+        "    raise ValueError(\"Invalid owner or repo\")\n",
+        "\n",
+        "  # Construct API URL\n",
+        "  url = f\"https://api.github.com/repos/{owner}/{repo}/commits\"\n",
+        "\n",
+        "  # Set up headers with token\n",
+        "  if token:\n",
+        "    headers[\"Authorization\"] = f\"token {token}\"\n",
+        "\n",
+        "  try:\n",
+        "    # Make API request\n",
+        "    response = requests.get(url, headers=headers)\n",
+        "    response.raise_for_status() #Raise exception for HTTP errors\n",
+        "\n",
+        "    # Parse commits\n",
+        "    commits = response.json()\n",
+        "\n",
+        "    # Format log on one line\n",
+        "    log = \"\\n\".join(f\"{commit['sha'][:7]} {commit['commit']['message']}\" for commit in commits)\n",
+        "\n",
+        "    return log if log else \"No commits found\"\n",
+        "\n",
+        "  except requests.RequestException as e:\n",
+        "    print(f\"Error: {e}\")\n",
+        "    return None"
+      ],
+      "metadata": {
+        "id": "sGyTn14sQJMm"
+      },
+      "execution_count": 4,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "NXAmipz_V89s"
+      },
+      "execution_count": 4,
+      "outputs": []
+    }
+  ]
+}
